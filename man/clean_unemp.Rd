@@ -2,37 +2,46 @@
 % Please edit documentation in R/functions.R
 \name{clean_unemp}
 \alias{clean_unemp}
-\title{Cleans unemployment data for Luxembourg}
+\title{Easily filter unemployment data for Luxembourg}
 \usage{
-clean_unemp(unemp_data, level, col_of_interest)
+clean_unemp(
+  unemp_data,
+  place_name_of_interest = NULL,
+  level_of_interest = NULL,
+  col_of_interest
+)
 }
 \arguments{
-\item{unemp_data}{A data frame containing unemployment data for Luxembourg.}
+\item{place_name_of_interest}{Optional: The name of the place of interest: leave empty to select every place in `level_of_interest`.}
 
-\item{level}{A predicate condition indicating the regional level of interest. See details for more.}
+\item{level_of_interest}{Optional: The level of interest: one of `Country`, `Canton`, `Commune`. Leave empty to select every level with the same place name.}
 
-\item{col_of_interest}{A column of the `unemp_data` data frame that you wish to select.}
+\item{col_of_interest}{A column of the `unemp` data frame that you wish to select.}
+
+\item{unemp}{A data frame containing unemployment data for Luxembourg.}
 }
 \value{
 A data frame
 }
 \description{
-Cleans unemployment data for Luxembourg
+Easily filter unemployment data for Luxembourg
 }
 \details{
-This function allows the user to create a data frame for several regional levels. The first level
-is the complete country. The second level are cantons, and the third level are neither cantons
-nor the whole country, so the communes. Individual communes can be selected as well.
-`level` must be predicate condition passed down to dplyr::filter. See the examples below
-for its usage.
+Users can filter data on two variables: the name of the place of interest, and the level of interest.
+By leaving the argument `place_name_of_interest` empty
 }
 \examples{
 # Filter on cantons
-clean_unemp(unemp_2013,
-            grepl("Canton", commune),
+clean_unemp(unemp,
+            level_of_interest = "Canton",
             active_population)
 # Filter on a specific commune
 clean_unemp(unemp_2013,
-            grepl("Kayl", commune),
+            place_name_of_interest = "Luxembourg",
+            level_of_interest = "Commune",
+            active_population)
+# Filter on every level called Luxembourg
+clean_unemp(unemp_2013,
+            place_name_of_interest = "Luxembourg",
             active_population)
 }
