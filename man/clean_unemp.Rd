@@ -6,12 +6,15 @@
 \usage{
 clean_unemp(
   unemp_data,
+  year_of_interest = NULL,
   place_name_of_interest = NULL,
   level_of_interest = NULL,
   col_of_interest
 )
 }
 \arguments{
+\item{year_of_interest}{Optional: The year that should be kept. Leave empty to select every year.}
+
 \item{place_name_of_interest}{Optional: The name of the place of interest: leave empty to select every place in `level_of_interest`.}
 
 \item{level_of_interest}{Optional: The level of interest: one of `Country`, `Canton`, `Commune`. Leave empty to select every level with the same place name.}

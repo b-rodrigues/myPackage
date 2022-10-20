@@ -1,10 +1,12 @@
 #' Easily filter unemployment data for Luxembourg
 #' @param unemp A data frame containing unemployment data for Luxembourg.
+#' @param year_of_interest Optional: The year that should be kept. Leave empty to select every year.
 #' @param place_name_of_interest Optional: The name of the place of interest: leave empty to select every place in `level_of_interest`.
 #' @param level_of_interest Optional: The level of interest: one of `Country`, `Canton`, `Commune`. Leave empty to select every level with the same place name.
 #' @param col_of_interest A column of the `unemp` data frame that you wish to select.
 #' @importFrom janitor clean_names
 #' @importFrom dplyr filter select
+#' @importFrom rlang quo `!!`
 #' @return A data frame
 #' @export
 #' @details
@@ -24,7 +26,17 @@
 #' clean_unemp(unemp_2013,
 #'             place_name_of_interest = "Luxembourg",
 #'             active_population)
-clean_unemp <- function(unemp_data, place_name_of_interest = NULL, level_of_interest = NULL, col_of_interest){
+clean_unemp <- function(unemp_data,
+                        year_of_interest = NULL,
+                        place_name_of_interest = NULL,
+                        level_of_interest = NULL,
+                        col_of_interest){
+
+  if(is.null(year_of_interest)){
+
+    year_of_interest <- quo(year)
+
+  }
 
   if(is.null(place_name_of_interest)){
 
@@ -40,7 +52,8 @@ clean_unemp <- function(unemp_data, place_name_of_interest = NULL, level_of_inte
 
   result <- unemp_data |>
     janitor::clean_names() |>
-    dplyr::filter(place_name %in% !!place_name_of_interest,
+    dplyr::filter(year %in% !!year_of_interest,
+                  place_name %in% !!place_name_of_interest,
                   level %in% !!level_of_interest) |>
     dplyr::select(year, place_name, level, {{col_of_interest}})
 
