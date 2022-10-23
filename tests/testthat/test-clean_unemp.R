@@ -4,13 +4,15 @@ test_that("selecting the grand duchy works", {
     unemp,
     year_of_interest = 2013,
     level_of_interest = "Country",
-    col_of_interest = active_population)
+    col_of_interest = active_population) |>
+      as.data.frame()
 
-  expected_value <- tibble::as_tibble(
+  expected_value <- as.data.frame(
                               list("year" = 2013,
                                    "place_name" = "Luxembourg",
                                    "level" = "Country",
-                                   "active_population" = 242694))
+                                   "active_population" = 242694)
+                              )
 
   expect_equal(returned_value, expected_value)
 
@@ -22,9 +24,10 @@ test_that("selecting cantons work", {
     unemp,
     year_of_interest = 2013,
     level_of_interest = "Canton",
-    col_of_interest = active_population)
+    col_of_interest = active_population) |>
+      as.data.frame()
 
-  expected_value <- readr::read_csv("test_data_cantons.csv", show_col_types = FALSE)
+  expected_value <- read.csv("test_data_cantons.csv")
 
   expect_equal(returned_value, expected_value)
 
@@ -36,9 +39,10 @@ test_that("selecting communes works", {
     unemp,
     year_of_interest = 2013,
     level_of_interest = "Commune",
-    col_of_interest = active_population)
+    col_of_interest = active_population) |>
+      as.data.frame()
 
-  expected_value <- readr::read_csv("test_data_communes.csv", show_col_types = FALSE)
+  expected_value <- read.csv("test_data_communes.csv")
 
   expect_equal(returned_value, expected_value)
 
@@ -50,9 +54,10 @@ test_that("selecting one commune works", {
     unemp,
     year_of_interest = 2013,
     place_name_of_interest = "Kayl",
-    col_of_interest = active_population)
+    col_of_interest = active_population) |>
+      as.data.frame()
 
-  expected_value <- tibble::as_tibble(
+  expected_value <- as.data.frame(
                               list("year" = 2013,
                                    "place_name" = "Kayl",
                                    "level" = "Commune",
@@ -68,9 +73,10 @@ test_that("wrong commune name", {
     unemp,
     year_of_interest = 2013,
     place_name_of_interest = "Paris",
-    col_of_interest = active_population)
+    col_of_interest = active_population) |>
+      as.data.frame()
 
-  expected_value <- tibble::as_tibble(
+  expected_value <- as.data.frame(
                               list("year" = numeric(0),
                                    "place_name" = character(0),
                                    "level" = character(0),

@@ -2,8 +2,8 @@ Package: myPackage
 Type: Package
 Title: Clean Lux Unemployment Data
 Version: 0.1.0
-Author: Bruno Rodrigues
-Maintainer: Bruno Rodrigues
+Authors@R: person("Bruno", "Rodrigues", email = "bruno@brodrigues.co",
+  role = c("aut", "cre"))
 Description: This package allows users to easily get unemployent data for Luxembourg
     from raw csv files
 License: GPL (>=3)
@@ -14,8 +14,11 @@ Depends:
     R (>= 4.1)
 Imports:
     dplyr,
-    janitor
+    janitor,
+    rlang
 Suggests: 
     knitr,
+    reader,
     rmarkdown,
-    testthat
+    testthat,
+    tibble
