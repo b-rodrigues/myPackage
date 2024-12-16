@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   rcmdcheck:
-    runs-on: [ubuntu-latest, windows, macos-latest]
+    runs-on: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v4
